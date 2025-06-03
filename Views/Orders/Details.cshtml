@@ -1,0 +1,39 @@
+﻿@model AdidasStoreMVC.Models.Order
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<h2>Chi tiết đơn hàng #@Model.Id</h2>
+
+<h4>Thông tin khách hàng</h4>
+<ul>
+    <li><strong>Họ tên:</strong> @Model.CustomerName</li>
+    <li><strong>Email:</strong> @Model.Email</li>
+    <li><strong>Số điện thoại:</strong> @Model.Phone</li>
+    <li><strong>Địa chỉ:</strong> @Model.Address</li>
+    <li><strong>Ngày đặt:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</li>
+    <li><strong>Trạng thái:</strong> @Model.Status</li>
+</ul>
+
+<h4>Sản phẩm trong đơn hàng</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Product?.Name</td>
+                <td>@item.UnitPrice.ToString("N0") đ</td>
+                <td>@item.Quantity</td>
+                <td>@(item.UnitPrice* item.Quantity) đ</td>
+            </tr>
+        }
+    </tbody>
+</table>

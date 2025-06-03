@@ -18,13 +18,14 @@
 }
 
 <div class="row">
-@foreach (var product in Model)
-{
+    @foreach (var product in Model)
+    {
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                @* Sửa để dùng ImageFileName và đường dẫn ~/Images/Products *@
+                @if (!string.IsNullOrEmpty(product.ImageFileName))
                 {
-                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="max-height:200px;object-fit:cover;" />
+                    <img src="~/Images/Products/@product.ImageFileName" class="card-img-top" alt="@product.Name" style="max-height:200px;object-fit:cover;" />
                 }
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
@@ -41,6 +42,5 @@
                 </div>
             </div>
         </div>
-}
-
-    
+    }
+</div>

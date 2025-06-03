@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AdidasStore.Migrations
+namespace AdidasStoreMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -163,8 +163,7 @@ namespace AdidasStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
+                    b.Property<string>("ImageFileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

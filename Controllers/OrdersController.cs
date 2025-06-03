@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using AdidasStoreMVC.Data;
+﻿using AdidasStoreMVC.Data;
 using AdidasStoreMVC.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -152,6 +153,19 @@ namespace AdidasStoreMVC.Controllers
             order.Status = OrderStatus.Rejected;
             _context.SaveChanges();
             return RedirectToAction("Manage");
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult Details(int id)
+        {
+            var order = _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .FirstOrDefault(o => o.Id == id);
+
+            if (order == null)
+                return NotFound();
+
+            return View(order);
         }
         // ====== BÁO CÁO THỐNG KÊ CHO ADMIN ======
         [Authorize(Roles = "Admin")]

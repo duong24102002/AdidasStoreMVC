@@ -30,9 +30,9 @@ else
                 {
                     <tr>
                         <td>
-                            @if (item.Product?.ImageUrl != null)
+                            @if (!string.IsNullOrEmpty(item.Product?.ImageFileName))
                             {
-                                <img src="@item.Product.ImageUrl" width="80" />
+                                <img src="~/Images/Products/@item.Product.ImageFileName" width="80" alt="@item.Product?.Name" />
                             }
                         </td>
                         <td>@item.Product?.Name</td>

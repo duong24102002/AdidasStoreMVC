@@ -1,4 +1,9 @@
+wwwroot\android-chrome-192x192.png
+wwwroot\android-chrome-512x512.png
+wwwroot\apple-touch-icon.png
 wwwroot\css\styles.css
+wwwroot\favicon-16x16.png
+wwwroot\favicon-32x32.png
 wwwroot\favicon.ico
 wwwroot\index.html
 wwwroot\js\main.js
@@ -62,6 +67,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\site.webmanifest
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\lib\jquery\LICENSE.txt
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\lib\jquery\dist\jquery.slim.min.map
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\lib\jquery\dist\jquery.slim.min.js
@@ -125,3 +131,4 @@ D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\js\main.js
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\favicon.ico
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\css\styles.css
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\index.html
+D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\wwwroot\site.webmanifest

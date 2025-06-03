@@ -6,7 +6,10 @@
 <h3>Bạn có chắc chắn muốn xóa sản phẩm này?</h3>
 <div>
     <strong>@Model.Name</strong> - @Model.Price.ToString("N0") đ<br />
-    <img src="@Model.ImageUrl" style="max-width:150px;" />
+    @if (!string.IsNullOrEmpty(Model.ImageFileName))
+    {
+        <img src="~/Images/Products/@Model.ImageFileName" style="max-width:150px;" alt="@Model.Name" />
+    }
 </div>
 <form asp-action="Delete">
     <input type="hidden" asp-for="Id" />

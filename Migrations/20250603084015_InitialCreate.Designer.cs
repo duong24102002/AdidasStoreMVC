@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AdidasStore.Migrations
+namespace AdidasStoreMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250603024833_InitialIdentity")]
-    partial class InitialIdentity
+    [Migration("20250603084015_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,20 +24,6 @@ namespace AdidasStore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AdidasStoreMVC.Models.Admin", b =>
-                {
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Username");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("AdidasStoreMVC.Models.ApplicationUser", b =>
                 {
@@ -131,6 +117,9 @@ namespace AdidasStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -177,8 +166,7 @@ namespace AdidasStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
+                    b.Property<string>("ImageFileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
