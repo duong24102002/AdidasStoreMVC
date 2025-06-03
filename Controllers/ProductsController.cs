@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdidasStoreMVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
@@ -33,6 +32,7 @@ namespace AdidasStoreMVC.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +53,7 @@ namespace AdidasStoreMVC.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -85,6 +86,7 @@ namespace AdidasStoreMVC.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();

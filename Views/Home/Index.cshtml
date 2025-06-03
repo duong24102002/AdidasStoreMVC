@@ -11,6 +11,11 @@
     {
         <a href="/Products" class="btn btn-warning">Quản lý Sản phẩm</a>
     }
+    @if (User.IsInRole("Client"))
+    {
+        <a href="/Products" class="btn btn-primary ms-2">Xem sản phẩm</a>
+        <a href="/Cart" class="btn btn-success ms-2">Xem giỏ hàng</a>
+    }
     <hr class="my-4" />
     <div class="row justify-content-center">
         <div class="col-md-8">

@@ -81,7 +81,7 @@ using (var scope = app.Services.CreateScope())
 
     // Tạo user admin mẫu (chỉ tạo nếu chưa tồn tại)
     string adminEmail = "admin@gmail.com";
-    string adminPassword = "123";
+    string adminPassword = "Admin@123";
     if (await userManager.FindByEmailAsync(adminEmail) == null)
     {
         var adminUser = new ApplicationUser
