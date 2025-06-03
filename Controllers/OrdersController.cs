@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using AdidasStoreMVC.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using AdidasStoreMVC.Data;
+using AdidasStoreMVC.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace AdidasStore.Controllers
+namespace AdidasStoreMVC.Controllers
 {
     public class OrdersController : Controller
     {
@@ -16,6 +18,7 @@ namespace AdidasStore.Controllers
             _context = context;
         }
 
+        // Lấy giỏ hàng từ session
         private List<CartItem> GetCart()
         {
             var cart = HttpContext.Session.GetString("Cart");
@@ -24,20 +27,32 @@ namespace AdidasStore.Controllers
                 : JsonConvert.DeserializeObject<List<CartItem>>(cart)!;
         }
 
+        // ====== PHẦN THANH TOÁN CHO CLIENT ======
+
+        // GET: Orders/Checkout
+        [Authorize(Roles = "Client")]
         [HttpGet]
         public IActionResult Checkout()
         {
-            return View();
+            var cart = GetCart();
+            if (!cart.Any())
+            {
+                TempData["Error"] = "Giỏ hàng trống!";
+                return RedirectToAction("Index", "Cart");
+            }
+            return View(new Order());
         }
 
+        // POST: Orders/Checkout
+        [Authorize(Roles = "Client")]
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
             var cart = GetCart();
             if (!cart.Any())
             {
-                ModelState.AddModelError("", "Giỏ hàng trống.");
-                return View(order);
+                TempData["Error"] = "Giỏ hàng trống!";
+                return RedirectToAction("Index", "Cart");
             }
 
             if (!ModelState.IsValid)
@@ -45,29 +60,35 @@ namespace AdidasStore.Controllers
                 return View(order);
             }
 
-            // Lưu thông tin khách vào Session tạm để xác nhận sau
+            // Lưu thông tin khách vào Session tạm (nếu cần xác nhận lại)
             HttpContext.Session.SetString("OrderTemp", JsonConvert.SerializeObject(order));
             return RedirectToAction("Confirm");
         }
 
+        // Xác nhận đơn hàng (hiển thị lại thông tin, kiểm tra lần cuối)
+        [Authorize(Roles = "Client")]
         [HttpGet]
         public IActionResult Confirm()
         {
             var orderJson = HttpContext.Session.GetString("OrderTemp");
             var cart = GetCart();
-            if (string.IsNullOrEmpty(orderJson) || !cart.Any()) return RedirectToAction("Checkout");
+            if (string.IsNullOrEmpty(orderJson) || !cart.Any())
+                return RedirectToAction("Checkout");
 
             var order = JsonConvert.DeserializeObject<Order>(orderJson)!;
             ViewBag.Cart = cart;
             return View(order);
         }
 
+        // POST xác nhận đặt hàng, lưu vào database
+        [Authorize(Roles = "Client")]
         [HttpPost]
         public IActionResult ConfirmOrder()
         {
             var orderJson = HttpContext.Session.GetString("OrderTemp");
             var cart = GetCart();
-            if (string.IsNullOrEmpty(orderJson) || !cart.Any()) return RedirectToAction("Checkout");
+            if (string.IsNullOrEmpty(orderJson) || !cart.Any())
+                return RedirectToAction("Checkout");
 
             var order = JsonConvert.DeserializeObject<Order>(orderJson)!;
 
@@ -82,8 +103,8 @@ namespace AdidasStore.Controllers
             }
 
             order.OrderDate = DateTime.Now;
-            // Đơn mới mặc định trạng thái Pending (chờ duyệt)
             order.Status = OrderStatus.Pending;
+
             _context.Orders.Add(order);
             _context.SaveChanges();
 
@@ -93,6 +114,7 @@ namespace AdidasStore.Controllers
             return RedirectToAction("Success");
         }
 
+        // Hiển thị trang đặt hàng thành công
         public IActionResult Success()
         {
             return View();
@@ -130,6 +152,39 @@ namespace AdidasStore.Controllers
             order.Status = OrderStatus.Rejected;
             _context.SaveChanges();
             return RedirectToAction("Manage");
+        }
+        // ====== BÁO CÁO THỐNG KÊ CHO ADMIN ======
+        [Authorize(Roles = "Admin")]
+        public IActionResult Report()
+        {
+            // Tổng đơn hàng
+            int totalOrders = _context.Orders.Count();
+
+            // Tổng đơn hàng theo trạng thái
+            int pendingOrders = _context.Orders.Count(o => o.Status == OrderStatus.Pending);
+            int approvedOrders = _context.Orders.Count(o => o.Status == OrderStatus.Approved);
+            int rejectedOrders = _context.Orders.Count(o => o.Status == OrderStatus.Rejected);
+
+            // Tổng doanh thu (chỉ tính đơn đã duyệt)
+            decimal totalRevenue = _context.Orders
+                .Where(o => o.Status == OrderStatus.Approved)
+                .SelectMany(o => o.OrderItems)
+                .Sum(oi => oi.UnitPrice * oi.Quantity);
+
+            // 10 đơn mới nhất
+            var latestOrders = _context.Orders
+                .OrderByDescending(o => o.OrderDate)
+                .Take(10)
+                .ToList();
+
+            ViewBag.TotalOrders = totalOrders;
+            ViewBag.PendingOrders = pendingOrders;
+            ViewBag.ApprovedOrders = approvedOrders;
+            ViewBag.RejectedOrders = rejectedOrders;
+            ViewBag.TotalRevenue = totalRevenue;
+            ViewBag.LatestOrders = latestOrders;
+
+            return View();
         }
     }
 }

@@ -98,6 +98,7 @@
         @if (User.IsInRole("Admin"))
         {
             <a href="/Products" class="btn btn-warning me-2 mb-2">Quản lý Sản phẩm</a>
+            <a href="/Orders/Report" class="btn btn-info me-2 mb-2">Báo cáo thống kê</a>
         }
         @if (User.IsInRole("Client"))
         {

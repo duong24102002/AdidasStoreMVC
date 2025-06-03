@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Báo cáo thống kê đơn hàng";
+    var currency = "VNĐ";
+}
+
+<h2>Báo cáo thống kê đơn hàng</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-light p-3">
+            <strong>Tổng số đơn:</strong>
+            <div class="display-6">@ViewBag.TotalOrders</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning p-3">
+            <strong>Đơn chờ duyệt:</strong>
+            <div class="display-6">@ViewBag.PendingOrders</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white p-3">
+            <strong>Đơn đã duyệt:</strong>
+            <div class="display-6">@ViewBag.ApprovedOrders</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white p-3">
+            <strong>Đơn bị từ chối:</strong>
+            <div class="display-6">@ViewBag.RejectedOrders</div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4">
+    <div class="card bg-info text-white p-3">
+        <strong>Tổng doanh thu (đơn đã duyệt):</strong>
+        <div class="display-6">@String.Format("{0:N0}", ViewBag.TotalRevenue) @currency</div>
+    </div>
+</div>
+
+<h4>10 đơn hàng mới nhất</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th>Tổng tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in ViewBag.LatestOrders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.CustomerName</td>
+                <td>@order.PhoneNumber</td>
+                <td>@order.ShippingAddress</td>
+                <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    @if (order.Status == AdidasStoreMVC.Models.OrderStatus.Pending)
+                    {
+                        <span class="badge bg-warning text-dark">Chờ duyệt</span>
+                    }
+                    else if (order.Status == AdidasStoreMVC.Models.OrderStatus.Approved)
+                    {
+                        <span class="badge bg-success">Đã duyệt</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Đã từ chối</span>
+                    }
+                </td>
+                <td>
+                    @{
+                        decimal tongTien = 0;
+                        foreach (var item in order.OrderItems)
+                        {
+                            tongTien += item.UnitPrice * item.Quantity;
+                        }
+                    }
+                    @String.Format("{0:N0}", tongTien) @currency
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
