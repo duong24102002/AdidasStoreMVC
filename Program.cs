@@ -1,5 +1,7 @@
 ﻿using AdidasStoreMVC.Data;
+using AdidasStoreMVC.Models; // Thêm dòng này để nhận diện ApplicationUser
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity; // Thêm dòng này để nhận diện IdentityRole
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,14 +14,18 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// ✅ Thêm dịch vụ Identity (phải đặt trước AddAuthentication)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 // ✅ Thêm xác thực cookie
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Admin/Login";
-        options.LogoutPath = "/Admin/Logout";
-        options.AccessDeniedPath = "/Admin/AccessDenied";
-    });
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Admin/Login";
+    options.LogoutPath = "/Admin/Logout";
+    options.AccessDeniedPath = "/Admin/AccessDenied";
+});
 
 // ✅ Thêm session
 builder.Services.AddSession(options =>
