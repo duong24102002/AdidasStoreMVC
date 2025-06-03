@@ -7,7 +7,10 @@
     <p class="lead mb-4">
         Khám phá các sản phẩm giày, quần áo, phụ kiện thể thao chính hãng với nhiều ưu đãi hấp dẫn.
     </p>
-    <a href="/Products" class="btn btn-primary btn-lg mb-4">Xem Sản Phẩm</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/Products" class="btn btn-warning">Quản lý Sản phẩm</a>
+    }
     <hr class="my-4" />
     <div class="row justify-content-center">
         <div class="col-md-8">

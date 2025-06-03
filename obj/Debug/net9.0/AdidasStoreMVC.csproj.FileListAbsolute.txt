@@ -226,11 +226,11 @@ D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticweba
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.build.json.cache
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.development.json
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasSt.8F8ADA12.Up2Date
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasStoreMVC.dll
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\refint\AdidasStoreMVC.dll
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasStoreMVC.pdb
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasStoreMVC.genruntimeconfig.cache
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\ref\AdidasStoreMVC.dll
-D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-wowu56dtfk.gz
+D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-25x9kznvwn.gz
+D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

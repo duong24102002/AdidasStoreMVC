@@ -2,24 +2,41 @@
 
 @{
     ViewData["Title"] = "Sản phẩm";
+    var isAdmin = User.IsInRole("Admin");
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <a asp-controller="Cart" asp-action="Index" class="btn btn-primary mb-3">🛒 Xem Giỏ Hàng</a>
 
+@if (isAdmin)
+{
+    <a asp-action="Create" class="btn btn-success mb-3 ms-2">➕ Thêm sản phẩm mới</a>
+}
+
 <div class="row">
     @foreach (var product in Model)
     {
         <div class="col-md-4 mb-4">
             <div class="card h-100">
+                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" style="max-height:200px;object-fit:cover;" />
+                }
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">Giá: @product.Price.ToString("N0") VND</p>
-                    
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-outline-primary">Thêm vào giỏ</a>
+                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-link">Xem chi tiết</a>
+                    @if (isAdmin)
+                    {
+                        <div class="mt-2">
+                            <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm ms-1">Xóa</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
-        <a asp-controller="cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn">Thêm vào giỏ</a>
     }
 </div>

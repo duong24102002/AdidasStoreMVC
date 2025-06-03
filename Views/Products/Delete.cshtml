@@ -1,0 +1,15 @@
+﻿@model AdidasStoreMVC.Models.Product
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>Bạn có chắc chắn muốn xóa sản phẩm này?</h3>
+<div>
+    <strong>@Model.Name</strong> - @Model.Price.ToString("N0") đ<br />
+    <img src="@Model.ImageUrl" style="max-width:150px;" />
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
