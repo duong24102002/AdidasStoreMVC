@@ -1,31 +1,404 @@
 ﻿@{
-    ViewData["Title"] = "Trang chủ Adidas Store";
+    ViewData["Title"] = "Adidas Store";
 }
+<link rel="stylesheet" href="~/css/styles.css" />
 
-<div class="container mt-5 text-center">
-    <h1 class="display-4 mb-3">Chào mừng đến với Adidas Store!</h1>
-    <p class="lead mb-4">
-        Khám phá các sản phẩm giày, quần áo, phụ kiện thể thao chính hãng với nhiều ưu đãi hấp dẫn.
-    </p>
-    @if (User.IsInRole("Admin"))
-    {
-        <a href="/Products" class="btn btn-warning">Quản lý Sản phẩm</a>
-    }
-    @if (User.IsInRole("Client"))
-    {
-        <a href="/Products" class="btn btn-primary ms-2">Xem sản phẩm</a>
-        <a href="/Cart" class="btn btn-success ms-2">Xem giỏ hàng</a>
-    }
-    <hr class="my-4" />
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <img src="https://static.vecteezy.com/system/resources/previews/010/994/239/non_2x/adidas-logo-black-symbol-clothes-design-icon-abstract-football-illustration-with-white-background-free-vector.jpg"
-                 alt="Adidas Logo" class="img-fluid rounded shadow-sm" style="max-width: 250px;" />
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Top bar -->
+<div class="top-bar">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="#" class="top-link" style="color: white">Help</a>
+            <a href="#" class="top-link" style="color: white">Orders & Returns</a>
         </div>
     </div>
-    <p class="mt-4">
-        <a href="https://learn.microsoft.com/aspnet/core" target="_blank">
-            Tìm hiểu về phát triển ứng dụng Web với ASP.NET Core
-        </a>
-    </p>
 </div>
+
+<!-- Main navbar -->
+<header class="main-header">
+    <div class="container">
+        <nav class="main-nav">
+            <a href="/" class="logo">
+                <img src="https://static.vecteezy.com/system/resources/previews/010/994/239/non_2x/adidas-logo-black-symbol-clothes-design-icon-abstract-football-illustration-with-white-background-free-vector.jpg"
+                     alt="Logo" class="logo-img">
+            </a>
+
+            <div class="nav-links">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link">Men</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Shoes</a>
+                        <a href="#" class="dropdown-item">Clothing</a>
+                        <a href="#" class="dropdown-item">Accessories</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link">Women</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Shoes</a>
+                        <a href="#" class="dropdown-item">Clothing</a>
+                        <a href="#" class="dropdown-item">Accessories</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link">Kids</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Boys</a>
+                        <a href="#" class="dropdown-item">Girls</a>
+                        <a href="#" class="dropdown-item">Babies</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">Sale</a>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <a href="#" class="action-btn search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" color="black" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </a>
+                <a href="/Account/Login" class="action-btn" title="Đăng nhập">
+                    <svg xmlns="http://www.w3.org/2000/svg" color="black" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="#" class="action-btn cart-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" color="black" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Nút chức năng cho từng vai trò -->
+<div class="container my-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/Products" class="btn btn-warning me-2 mb-2">Quản lý Sản phẩm</a>
+        }
+        @if (User.IsInRole("Client"))
+        {
+            <a href="/Products" class="btn btn-primary me-2 mb-2">Xem sản phẩm</a>
+            <a href="/Cart" class="btn btn-success me-2 mb-2">Xem giỏ hàng</a>
+        }
+    </div>
+</div>
+
+<!-- Hero section with video -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay-content">
+        <p class="hero-message">Khám phá bộ sưu tập mới nhất và trải nghiệm sự thoải mái tuyệt vời.</p>
+        <button style="color:black; background-color: white; font: bold;" class="btn btn-primary buy-now-btn">
+            Mua ngay
+        </button>
+    </div>
+
+    <div class="hero-video-container">
+        <video class="hero-video" loop muted autoplay playsinline aria-label="">
+            <source src="https://brand.assets.adidas.com/video/upload/f_auto:video,q_auto/if_w_gt_1920,w_1920/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_DT_2880x1280_1_d079ce2c9e.mp4"
+                    type="video/mp4" media="(min-width: 960px)" />
+            <source src="https://brand.assets.adidas.com/video/upload/f_auto:video,q_auto/if_w_gt_960,w_960/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_TA_1600x1600_1_9c3710b55e.mp4"
+                    type="video/mp4" media="(min-width: 768px)" />
+            <source src="https://brand.assets.adidas.com/video/upload/f_auto:video,q_auto/if_w_gt_768,w_768/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_MO_750x964_1_0dc7c0e938.mp4"
+                    type="video/mp4" media="(max-width: 767px)" />
+        </video>
+        <!-- Fallback image -->
+        <div class="hero-fallback-image">
+            <picture>
+                <source srcset="https://brand.assets.adidas.com/video/upload/f_auto,q_auto/if_w_gt_1920,w_1920/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_DT_2880x1280_1_d079ce2c9e.jpg"
+                        media="(min-width: 960px)" />
+                <source srcset="https://brand.assets.adidas.com/video/upload/f_auto,q_auto/if_w_gt_768,w_768/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_MO_750x964_1_0dc7c0e938.jpg"
+                        media="(min-width: 768px)" />
+                <source srcset="https://brand.assets.adidas.com/video/upload/f_auto,q_auto/if_w_gt_768,w_768/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_MO_750x964_1_0dc7c0e938.jpg"
+                        media="(max-width: 767px)" />
+                <img src="https://brand.assets.adidas.com/video/upload/f_auto,q_auto/if_w_gt_1920,w_1920/V1_SS_25_Lo_Profile_Sunghoon_Onsite_Masthead_SEA_DT_2880x1280_1_d079ce2c9e.jpg"
+                     alt="" loading="eager" class="hero-fallback-img" />
+            </picture>
+        </div>
+        <div class="video-controls">
+            <button class="video-control-btn" id="videoToggleBtn" aria-label="Pause video">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" role="img"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11 26L11 6H12L12 26H11ZM20 26L20 6H21L21 26H20Z"
+                          fill="currentColor"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">ULTRABOOST 22</h1>
+            <p class="hero-subtitle">Incredible energy return for your daily run.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">SHOP MEN</a>
+                <a href="#" class="btn btn-light">SHOP WOMEN</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-products">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Latest Releases</h2>
+            <a href="#" class="view-all-link">
+                View All
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+        <div class="products-grid" id="crudProductCards"></div>
+        <div class="products-grid">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+                <div class="product-image-container">
+                    <div class="product-tag new">NEW</div>
+                    <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg"
+                         alt="Ultraboost 22" class="product-image" />
+                    <div class="add-to-cart-overlay">
+                        <button class="add-to-cart-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Running</p>
+                    <h3 class="product-name">Ultraboost 22</h3>
+                    <p class="product-price">$190.00</p>
+                </div>
+            </div>
+            <!-- Product Card 2 -->
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/68ae7ea7849b43eca70aac1e00f5146d_9366/Stan_Smith_Shoes_White_FX5502_01_standard.jpg"
+                         alt="Stan Smith" class="product-image" />
+                    <div class="add-to-cart-overlay">
+                        <button class="add-to-cart-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Originals</p>
+                    <h3 class="product-name">Stan Smith</h3>
+                    <p class="product-price">$90.00</p>
+                </div>
+            </div>
+            <!-- Product Card 3 -->
+            <div class="product-card">
+                <div class="product-image-container">
+                    <div class="product-tag new">NEW</div>
+                    <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/69cbc73d0cb846889f89acbb011e68cb_9366/Supernova_Shoes_Black_S42722_01_standard.jpg"
+                         alt="Supernova" class="product-image" />
+                    <div class="add-to-cart-overlay">
+                        <button class="add-to-cart-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Running</p>
+                    <h3 class="product-name">Supernova</h3>
+                    <p class="product-price">$100.00</p>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR0E3sxVEFato74srmm-VgvrwSF_4DM04HPp4tztEakANk9VkHe-KmUlOCP4-wDP2m2eQEvS4aqKJTn4kdoJIHNmafSGq51-OlkUU9I-7i6sDinz4lpXY0NnwUS1yOP-34uqntLRiQ&usqp=CAc"
+                         alt="Tiro Track Jacket" class="product-image" />
+                    <div class="add-to-cart-overlay">
+                        <button class="add-to-cart-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Soccer</p>
+                    <h3 class="product-name">Tiro Track Jacket</h3>
+                    <p class="product-price">$45.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+    <div class="container">
+        <h2 class="section-title">Shop By Category</h2>
+        <div class="categories-grid">
+            <!-- Category 1 -->
+            <div class="category-card">
+                <div class="category-image-wrapper">
+                    <img src="https://cdn.storims.com/api/v2/image/resize?path=https://storage.googleapis.com/storims_cdn/storims/uploads/38a75597a55423c24f7b17a77f8a4a6f.jpeg&width=600&format=jpeg"
+                         class="category-image" />
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Men</h3>
+                    <a href="#" class="btn btn-dark">Shop Now</a>
+                </div>
+            </div>
+            <!-- Category 2 -->
+            <div class="category-card">
+                <div class="category-image-wrapper">
+                    <img src="https://cdn.vuahanghieu.com/unsafe/0x0/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/news/content/2023/12/ao-khoac-nu-adidas-women-s-windful-zip-w-wording-hm2805-mau-kem-2-jpg-1701999931-08122023084531.jpg"
+                         alt="Women" class="category-image" />
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Women</h3>
+                    <a href="#" class="btn btn-dark">Shop Now</a>
+                </div>
+            </div>
+            <!-- Category 3 -->
+            <div class="category-card">
+                <div class="category-image-wrapper">
+                    <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/347/092/products/z-hr6317-on-model-standard-unisex-back-view-ty3iyqovyb.jpg?v=1692355628037"
+                         alt="Kids" class="category-image" />
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Kids</h3>
+                    <a href="#" class="btn btn-dark">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-container">
+            <h2 class="newsletter-title">JOIN OUR NEWSLETTER</h2>
+            <p class="newsletter-text">
+                Sign up for the latest news, product releases, and exclusive offers.
+            </p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" class="newsletter-input" required />
+                <button style="color:white; background-color: black; font: bold;" type="submit"
+                        class="btn btn-primary newsletter-btn">
+                    SUBSCRIBE
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="main-footer">
+    <div class="container">
+        <!-- Links -->
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3 class="footer-title">Products</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Shoes</a></li>
+                    <li><a href="#">Clothing</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Release Dates</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Sports</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Running</a></li>
+                    <li><a href="#">Training</a></li>
+                    <li><a href="#">Soccer</a></li>
+                    <li><a href="#">Basketball</a></li>
+                    <li><a href="#">Outdoor</a></li>
+                    <li><a href="#">Tennis</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Collections</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Ultraboost</a></li>
+                    <li><a href="#">Originals</a></li>
+                    <li><a href="#">NMD</a></li>
+                    <li><a href="#">Superstar</a></li>
+                    <li><a href="#">Stan Smith</a></li>
+                    <li><a href="#">Gazelle</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Support</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Order Tracker</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Bottom section -->
+        <div class="footer-bottom">
+            <div class="copyright">
+                © 2023 Fake Adidas. All Rights Reserved.
+            </div>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/main.js"></script>
