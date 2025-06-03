@@ -1,10 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
-using AdidasStoreMVC.Models;
-using Newtonsoft.Json;
 using AdidasStoreMVC.Data;
+using AdidasStoreMVC.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AdidasStore.Controllers
 {
+    [Authorize(Roles = "Client")]
+
     public class CartController : Controller
     {
         private readonly AppDbContext _context;

@@ -3,20 +3,23 @@
 @{
     ViewData["Title"] = "Sản phẩm";
     var isAdmin = User.IsInRole("Admin");
+    var isClient = User.IsInRole("Client");
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<a asp-controller="Cart" asp-action="Index" class="btn btn-primary mb-3">🛒 Xem Giỏ Hàng</a>
-
+@if (isClient)
+{
+    <a asp-controller="Cart" asp-action="Index" class="btn btn-primary mb-3">🛒 Xem Giỏ Hàng</a>
+}
 @if (isAdmin)
 {
     <a asp-action="Create" class="btn btn-success mb-3 ms-2">➕ Thêm sản phẩm mới</a>
 }
 
 <div class="row">
-    @foreach (var product in Model)
-    {
+@foreach (var product in Model)
+{
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 @if (!string.IsNullOrEmpty(product.ImageUrl))
@@ -38,5 +41,6 @@
                 </div>
             </div>
         </div>
-    }
-</div>
+}
+
+    
