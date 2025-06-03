@@ -1,10 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Báo cáo thống kê đơn hàng";
     var currency = "VNĐ";
-    // Nhận dữ liệu doanh thu từng tháng từ ViewBag (đoạn này cần controller truyền sang)
-    var revenues = (decimal[])ViewBag.Revenues ?? new decimal[12];
+
+    // Nhận dữ liệu doanh thu từng tháng từ ViewBag, luôn là 12 số
+    var revenues = ViewBag.Revenues as IEnumerable<decimal> ?? Enumerable.Repeat(0m, 12);
+    var revenuesArray = revenues.ToArray();
     var year = ViewBag.Year ?? DateTime.Now.Year;
 }
+<!-- Nếu muốn debug giá trị revenues, bỏ comment dòng dưới -->
+<!-- <pre>@string.Join(", ", revenuesArray)</pre> -->
 
 <h2>Báo cáo thống kê đơn hàng</h2>
 
@@ -50,9 +54,9 @@
     </div>
 </div>
 
-<!-- Nhúng Chart.js từ CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    var chartData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(revenuesArray));
     var ctx = document.getElementById('revenueChart').getContext('2d');
     var chart = new Chart(ctx, {
         type: 'bar',
@@ -60,7 +64,7 @@
             labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                 label: 'Doanh thu (VNĐ)',
-                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(revenues)),
+                data: chartData,
                 backgroundColor: 'rgba(54, 162, 235, 0.7)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1

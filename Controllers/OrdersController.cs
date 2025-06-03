@@ -179,6 +179,24 @@ namespace AdidasStoreMVC.Controllers
             int approvedOrders = _context.Orders.Count(o => o.Status == OrderStatus.Approved);
             int rejectedOrders = _context.Orders.Count(o => o.Status == OrderStatus.Rejected);
 
+            var year = DateTime.Now.Year;
+            var data = _context.Orders
+                .Include(o => o.OrderItems)
+                .Where(o => o.OrderDate.Year == year && o.Status == OrderStatus.Approved)
+                .GroupBy(o => o.OrderDate.Month)
+                .Select(g => new {
+                    Month = g.Key,
+                    Revenue = g.Sum(order => order.OrderItems.Sum(item => item.Quantity * item.UnitPrice))
+                })
+                .ToList();
+
+            decimal[] revenues = new decimal[12];
+            foreach (var item in data)
+                revenues[item.Month - 1] = item.Revenue;
+
+            ViewBag.Revenues = revenues;
+            ViewBag.Year = year;
+
             // Tổng doanh thu (chỉ tính đơn đã duyệt)
             decimal totalRevenue = _context.Orders
                 .Where(o => o.Status == OrderStatus.Approved)

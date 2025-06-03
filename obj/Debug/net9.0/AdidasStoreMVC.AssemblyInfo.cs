@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdidasStoreMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f517375f23902327950ac15078d0539410182979")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+538406cc90a8eb77d9ca6acb45857ae491f59ca6")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdidasStoreMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdidasStoreMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
