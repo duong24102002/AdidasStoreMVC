@@ -237,5 +237,5 @@ D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\bin\Debug\net9.0\Microsoft.
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-aa1i7ny5m0.gz
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
-D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-zf0yw9nca4.gz

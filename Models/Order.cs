@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,5 +24,12 @@ namespace AdidasStoreMVC.Models
         public DateTime OrderDate { get; set; } = DateTime.Now;
 
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
+    }
+    public enum OrderStatus
+    {
+        Pending,    // Đơn mới, chưa duyệt
+        Approved,   // Đã duyệt
+        Rejected    // Đã từ chối
     }
 }

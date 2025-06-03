@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using AdidasStoreMVC.Models;
 using Newtonsoft.Json;
 using AdidasStoreMVC.Data;
+using System.Linq;
 
 namespace AdidasStore.Controllers
 {
@@ -80,6 +82,8 @@ namespace AdidasStore.Controllers
             }
 
             order.OrderDate = DateTime.Now;
+            // Đơn mới mặc định trạng thái Pending (chờ duyệt)
+            order.Status = OrderStatus.Pending;
             _context.Orders.Add(order);
             _context.SaveChanges();
 
@@ -92,6 +96,40 @@ namespace AdidasStore.Controllers
         public IActionResult Success()
         {
             return View();
+        }
+
+        // ====== PHẦN QUẢN LÝ ĐƠN HÀNG CHO ADMIN ======
+
+        // Hiển thị danh sách đơn hàng cho admin
+        [Authorize(Roles = "Admin")]
+        public IActionResult Manage()
+        {
+            var orders = _context.Orders
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+            return View(orders);
+        }
+
+        // Duyệt đơn
+        [Authorize(Roles = "Admin")]
+        public IActionResult Approve(int id)
+        {
+            var order = _context.Orders.Find(id);
+            if (order == null) return NotFound();
+            order.Status = OrderStatus.Approved;
+            _context.SaveChanges();
+            return RedirectToAction("Manage");
+        }
+
+        // Từ chối đơn
+        [Authorize(Roles = "Admin")]
+        public IActionResult Reject(int id)
+        {
+            var order = _context.Orders.Find(id);
+            if (order == null) return NotFound();
+            order.Status = OrderStatus.Rejected;
+            _context.SaveChanges();
+            return RedirectToAction("Manage");
         }
     }
 }
