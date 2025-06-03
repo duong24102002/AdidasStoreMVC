@@ -16,22 +16,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AdminController",
-    "Method": "Login",
-    "RelativePath": "api/Admin/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginAdmin",
-        "Type": "Admin",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "AdidasStore.Controllers.ProductsController",
     "Method": "GetProducts",
     "RelativePath": "api/Products",
@@ -41,7 +25,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[AdidasStore.Models.Product, AdidasStoreMVC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AdidasStoreMVC.Models.Product, AdidasStoreMVC, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -67,7 +51,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "AdidasStore.Models.Product",
+        "Type": "AdidasStoreMVC.Models.Product",
         "MediaTypes": [
           "text/plain",
           "application/json",

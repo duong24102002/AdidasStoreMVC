@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using AdidasStore.Models;
+using AdidasStoreMVC.Models;
 using Newtonsoft.Json;
 using AdidasStoreMVC.Data;
 
