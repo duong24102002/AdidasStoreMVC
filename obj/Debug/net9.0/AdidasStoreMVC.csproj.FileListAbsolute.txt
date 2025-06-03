@@ -160,7 +160,6 @@ D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\scopedcss\
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\scopedcss\projectbundle\AdidasStoreMVC.bundle.scp.css
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\d4urhhmfae-8ozwgbvtsv.gz
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\c4uinorhyz-61n19gt1b8.gz
-D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-s6yvzophti.gz
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\iy7te3uapx-6rrjvyj9b5.gz
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\0ivzol6o40-bqjiyaj88i.gz
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\60byl46fio-c2jlpeoesf.gz
@@ -234,3 +233,4 @@ D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\refint\Adi
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasStoreMVC.pdb
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\AdidasStoreMVC.genruntimeconfig.cache
 D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\ref\AdidasStoreMVC.dll
+D:\Test\AdidasStoreMVC\AdidasStoreMVC\AdidasStoreMVC\obj\Debug\net9.0\compressed\ehx9e5cfy8-wowu56dtfk.gz
