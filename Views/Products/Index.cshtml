@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AdidasStore.Models.Product>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-controller="Cart" asp-action="Index" class="btn btn-primary mb-3">🛒 Xem Giỏ Hàng</a>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">Giá: @product.Price.ToString("N0") VND</p>
+                    
+                </div>
+            </div>
+        </div>
+        <a asp-controller="cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn">Thêm vào giỏ</a>
+    }
+</div>

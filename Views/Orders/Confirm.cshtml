@@ -1,0 +1,46 @@
+﻿@model AdidasStore.Models.Order
+@{
+    ViewData["Title"] = "Xác nhận đơn hàng";
+    var cart = ViewBag.Cart as List<AdidasStore.Models.CartItem>;
+    var total = cart.Sum(i => i.Product.Price * i.Quantity);
+}
+
+<h2>Xác nhận đơn hàng</h2>
+
+<h4>Thông tin khách hàng</h4>
+<ul>
+    <li><strong>Họ tên:</strong> @Model.CustomerName</li>
+    <li><strong>Email:</strong> @Model.Email</li>
+    <li><strong>Điện thoại:</strong> @Model.Phone</li>
+    <li><strong>Địa chỉ:</strong> @Model.Address</li>
+</ul>
+
+<h4>Sản phẩm trong giỏ</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in cart)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Product.Price.ToString("N0") đ</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Product.Price* item.Quantity).ToString("N0") đ</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Tổng cộng: @total.ToString("N0") đ</h4>
+
+<form method="post" asp-action="ConfirmOrder">
+    <button type="submit" class="btn btn-success">Xác nhận đặt hàng</button>
+    <a asp-action="Checkout" class="btn btn-secondary">Quay lại</a>
+</form>
