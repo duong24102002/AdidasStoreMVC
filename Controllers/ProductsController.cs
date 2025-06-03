@@ -57,8 +57,7 @@ namespace AdidasStoreMVC.Controllers
                     var extension = Path.GetExtension(ImageUpload.FileName).ToLower();
                     if (extension == ".png")
                     {
-                        // Tạo tên file duy nhất
-                        var fileName = Guid.NewGuid().ToString() + extension;
+                        var fileName = Guid.NewGuid() + extension;
                         var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Products");
                         if (!Directory.Exists(uploadPath))
                         {
@@ -69,8 +68,7 @@ namespace AdidasStoreMVC.Controllers
                         {
                             await ImageUpload.CopyToAsync(stream);
                         }
-
-                        product.ImageFileName = fileName; // Lưu tên file vào DB
+                        product.ImageFileName = fileName; // Save file name to DB
                     }
                     else
                     {
@@ -109,32 +107,54 @@ namespace AdidasStoreMVC.Controllers
             if (id != product.Id) return NotFound();
             if (ModelState.IsValid)
             {
+                var oldProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+                if (oldProduct == null) return NotFound();
+
+                string oldImageFileName = oldProduct.ImageFileName;
+
+                if (ImageUpload != null && ImageUpload.Length > 0)
+                {
+                    var extension = Path.GetExtension(ImageUpload.FileName).ToLower();
+                    if (extension == ".png")
+                    {
+                        var fileName = Guid.NewGuid() + extension;
+                        var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Products");
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+                        var filePath = Path.Combine(uploadPath, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await ImageUpload.CopyToAsync(stream);
+                        }
+
+                        // Xóa ảnh cũ nếu có
+                        if (!string.IsNullOrEmpty(oldImageFileName))
+                        {
+                            var oldFilePath = Path.Combine(uploadPath, oldImageFileName);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+
+                        product.ImageFileName = fileName;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Chỉ chấp nhận file PNG.");
+                        return View(product);
+                    }
+                }
+                else
+                {
+                    // Nếu không upload ảnh mới, giữ nguyên ảnh cũ
+                    product.ImageFileName = oldImageFileName;
+                }
+
                 try
                 {
-                    if (ImageUpload != null && ImageUpload.Length > 0)
-                    {
-                        var extension = Path.GetExtension(ImageUpload.FileName).ToLower();
-                        if (extension == ".png")
-                        {
-                            var fileName = Guid.NewGuid().ToString() + extension;
-                            var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", "Products");
-                            if (!Directory.Exists(uploadPath))
-                            {
-                                Directory.CreateDirectory(uploadPath);
-                            }
-                            var filePath = Path.Combine(uploadPath, fileName);
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await ImageUpload.CopyToAsync(stream);
-                            }
-                            product.ImageFileName = fileName;
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "Chỉ chấp nhận file PNG.");
-                            return View(product);
-                        }
-                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

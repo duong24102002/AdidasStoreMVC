@@ -5,6 +5,9 @@ wwwroot\css\styles.css
 wwwroot\favicon-16x16.png
 wwwroot\favicon-32x32.png
 wwwroot\favicon.ico
+wwwroot\images\Products\a8591418-7117-4726-8589-0048a1579f9f.png
+wwwroot\images\Products\Adidas den.png
+wwwroot\images\Products\Adidas trang.png
 wwwroot\index.html
 wwwroot\js\main.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

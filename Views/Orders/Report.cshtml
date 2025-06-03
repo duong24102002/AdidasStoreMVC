@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Báo cáo thống kê đơn hàng";
     var currency = "VNĐ";
+    // Nhận dữ liệu doanh thu từng tháng từ ViewBag (đoạn này cần controller truyền sang)
+    var revenues = (decimal[])ViewBag.Revenues ?? new decimal[12];
+    var year = ViewBag.Year ?? DateTime.Now.Year;
 }
 
 <h2>Báo cáo thống kê đơn hàng</h2>
@@ -38,6 +41,45 @@
         <div class="display-6">@String.Format("{0:N0}", ViewBag.TotalRevenue) @currency</div>
     </div>
 </div>
+
+<!-- Biểu đồ doanh thu theo tháng -->
+<div class="mb-4">
+    <div class="card p-3">
+        <h4>Biểu đồ doanh thu theo tháng (@year)</h4>
+        <canvas id="revenueChart" width="800" height="400"></canvas>
+    </div>
+</div>
+
+<!-- Nhúng Chart.js từ CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Doanh thu (VNĐ)',
+                data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(revenues)),
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString('vi-VN');
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
 
 <h4>10 đơn hàng mới nhất</h4>
 <table class="table table-bordered">

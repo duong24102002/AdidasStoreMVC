@@ -57,10 +57,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// ✅ Middleware cho xác thực & session
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
+app.MapControllerRoute(
+    name: "report",
+    pattern: "Reports/RevenueByMonth",
+    defaults: new { controller = "Reports", action = "RevenueByMonth" });
 
 app.MapControllerRoute(
     name: "default",
