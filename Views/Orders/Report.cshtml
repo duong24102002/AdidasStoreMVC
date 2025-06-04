@@ -12,6 +12,22 @@
 <a href="@Url.Action("ExportOrdersToExcel", "Orders")" class="btn btn-success mb-3">
     Xuất danh sách đơn hàng ra Excel
 </a>
+<form asp-action="ImportOrdersFromExcel" asp-controller="Orders" method="post" enctype="multipart/form-data" class="mb-3">
+    <div class="input-group">
+        <input type="file" name="file" accept=".xlsx,.xls" class="form-control" required>
+        <button type="submit" class="btn btn-primary">Nhập đơn hàng từ Excel</button>
+    </div>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
 
 <h2>Báo cáo thống kê đơn hàng</h2>
 

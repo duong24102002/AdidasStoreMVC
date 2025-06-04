@@ -7,8 +7,9 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace AdidasStoreMVC.Controllers
 {
@@ -220,6 +221,7 @@ namespace AdidasStoreMVC.Controllers
 
             return View();
         }
+
         [Authorize(Roles = "Admin")]
         public IActionResult ExportOrdersToExcel()
         {
@@ -260,6 +262,76 @@ namespace AdidasStoreMVC.Controllers
                     return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
                 }
             }
+        }
+
+        // ====== IMPORT ĐƠN HÀNG TỪ EXCEL ======
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult ImportOrdersFromExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                TempData["Error"] = "Vui lòng chọn file Excel.";
+                return RedirectToAction("Report");
+            }
+
+            int imported = 0;
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            // Giả sử file Excel có các cột giống export: 
+                            // Mã đơn | Khách hàng | SĐT | Địa chỉ | Ngày đặt | Trạng thái | Tổng tiền
+                            // Bạn có thể tuỳ chỉnh mapping theo file thực tế
+
+                            string customer = worksheet.Cells[row, 2].Value?.ToString();
+                            string phone = worksheet.Cells[row, 3].Value?.ToString();
+                            string address = worksheet.Cells[row, 4].Value?.ToString();
+                            string orderDateStr = worksheet.Cells[row, 5].Value?.ToString();
+                            string statusStr = worksheet.Cells[row, 6].Value?.ToString();
+
+                            if (string.IsNullOrWhiteSpace(customer)) continue;
+
+                            DateTime orderDate = DateTime.Now;
+                            if (!DateTime.TryParse(orderDateStr, out orderDate))
+                                orderDate = DateTime.Now;
+
+                            OrderStatus status = OrderStatus.Pending;
+                            Enum.TryParse(statusStr, out status);
+
+                            var order = new Order
+                            {
+                                CustomerName = customer,
+                                Phone = phone,
+                                Address = address,
+                                OrderDate = orderDate,
+                                Status = status,
+                                OrderItems = new List<OrderItem>() // Bạn nên import chi tiết đơn hàng nếu có cột
+                            };
+
+                            // TODO: Nếu file Excel có dữ liệu chi tiết OrderItems, hãy đọc thêm các cột và add vào order.OrderItems ở đây
+
+                            _context.Orders.Add(order);
+                            imported++;
+                        }
+                        _context.SaveChanges();
+                    }
+                }
+                TempData["Success"] = $"Import thành công {imported} đơn hàng!";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Lỗi import: {ex.Message}";
+            }
+            return RedirectToAction("Report");
         }
     }
 }
