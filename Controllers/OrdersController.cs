@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace AdidasStoreMVC.Controllers
@@ -222,8 +223,6 @@ namespace AdidasStoreMVC.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult ExportOrdersToExcel()
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
             var orders = _context.Orders
                 .Include(o => o.OrderItems)
                 .OrderByDescending(o => o.OrderDate)
@@ -239,7 +238,6 @@ namespace AdidasStoreMVC.Controllers
                 worksheet.Cells[1, 5].Value = "Ngày đặt";
                 worksheet.Cells[1, 6].Value = "Trạng thái";
                 worksheet.Cells[1, 7].Value = "Tổng tiền";
-
                 int row = 2;
                 foreach (var order in orders)
                 {
@@ -254,9 +252,13 @@ namespace AdidasStoreMVC.Controllers
                 }
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
 
-                var excelData = package.GetAsByteArray();
-                var fileName = $"DanhSachDonHang_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                using (var stream = new MemoryStream())
+                {
+                    package.SaveAs(stream);
+                    stream.Position = 0;
+                    var fileName = $"DanhSachDonHang_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
             }
         }
     }

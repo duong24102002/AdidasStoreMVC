@@ -60,7 +60,7 @@
             },
             "EPPlus": {
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[7.2.5, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -83,6 +83,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.5, )"
+            },
+            "Microsoft.Office.Interop.Excel": {
+              "target": "Package",
+              "version": "[15.0.4795.1001, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
