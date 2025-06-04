@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -217,6 +218,46 @@ namespace AdidasStoreMVC.Controllers
             ViewBag.LatestOrders = latestOrders;
 
             return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult ExportOrdersToExcel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var orders = _context.Orders
+                .Include(o => o.OrderItems)
+                .OrderByDescending(o => o.OrderDate)
+                .ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Orders");
+                worksheet.Cells[1, 1].Value = "Mã đơn";
+                worksheet.Cells[1, 2].Value = "Khách hàng";
+                worksheet.Cells[1, 3].Value = "SĐT";
+                worksheet.Cells[1, 4].Value = "Địa chỉ";
+                worksheet.Cells[1, 5].Value = "Ngày đặt";
+                worksheet.Cells[1, 6].Value = "Trạng thái";
+                worksheet.Cells[1, 7].Value = "Tổng tiền";
+
+                int row = 2;
+                foreach (var order in orders)
+                {
+                    worksheet.Cells[row, 1].Value = order.Id;
+                    worksheet.Cells[row, 2].Value = order.CustomerName;
+                    worksheet.Cells[row, 3].Value = order.Phone;
+                    worksheet.Cells[row, 4].Value = order.Address;
+                    worksheet.Cells[row, 5].Value = order.OrderDate.ToString("dd/MM/yyyy HH:mm");
+                    worksheet.Cells[row, 6].Value = order.Status.ToString();
+                    worksheet.Cells[row, 7].Value = order.OrderItems.Sum(i => i.UnitPrice * i.Quantity);
+                    row++;
+                }
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                var excelData = package.GetAsByteArray();
+                var fileName = $"DanhSachDonHang_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
         }
     }
 }
