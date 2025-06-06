@@ -297,6 +297,9 @@ namespace AdidasStoreMVC.Controllers
                             string address = worksheet.Cells[row, 4].Value?.ToString();
                             string orderDateStr = worksheet.Cells[row, 5].Value?.ToString();
                             string statusStr = worksheet.Cells[row, 6].Value?.ToString();
+                            string totalAmountStr = worksheet.Cells[row, 7].Value?.ToString();
+                            decimal totalAmount = 0;
+                            decimal.TryParse(totalAmountStr, out totalAmount);
 
                             if (string.IsNullOrWhiteSpace(customer)) continue;
 
@@ -314,6 +317,7 @@ namespace AdidasStoreMVC.Controllers
                                 Address = address,
                                 OrderDate = orderDate,
                                 Status = status,
+                                TotalAmount = totalAmount,
                                 OrderItems = new List<OrderItem>() // Bạn nên import chi tiết đơn hàng nếu có cột
                             };
 
